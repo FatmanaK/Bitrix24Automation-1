@@ -23,9 +23,11 @@ public class Login_stepDefinitions {
 
     }
 
+
     @When("User enters correct username {string}")
     public void user_enters_correct_username(String username) throws InterruptedException {
         wait.until(ExpectedConditions.visibilityOf(loginPage.email));
+        //loginPage.email.sendKeys(username);
         loginPage.email.sendKeys(username);
 
     }
@@ -42,17 +44,14 @@ public class Login_stepDefinitions {
 
 
     }
-
-    @Then("User name should be {string}")
-    public void user_name_should_be(String exceptedUserName) {
+    @Then("User name should be username on main page {string}")
+    public void userNameShouldBeUsernameOnMainPage(String exceptedUserName) {
         wait.until(ExpectedConditions.visibilityOf(mainPage.username));
         String actualUsername = mainPage.username.getText();
 
         Assert.assertTrue(actualUsername.equals(exceptedUserName));
 
         Driver.closeDriver();
-
-
     }
 
 
@@ -70,4 +69,6 @@ public class Login_stepDefinitions {
         Assert.assertEquals("wrong text",actualWarningMessage,expectedWarningMessage);
 
     }
+
+
 }

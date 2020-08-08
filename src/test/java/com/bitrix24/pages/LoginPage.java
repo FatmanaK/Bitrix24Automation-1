@@ -23,9 +23,6 @@ public class LoginPage {
     @FindBy(xpath = "//div[@class='errortext']")
     public WebElement warningMessage;
 
-    @FindBy(linkText = "Google")
-    public WebElement linkVerification;
-
 
 
 }

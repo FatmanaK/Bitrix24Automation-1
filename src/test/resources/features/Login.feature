@@ -7,7 +7,7 @@ Feature: Login
     When User enters correct username "<username>"
     And User enters correct password "<password>"
     And User clicks login button
-    Then User name should be "<exceptedUsername>"
+    Then User name should be username on main page "<exceptedUsername>"
 
     Examples:
       | username                       | password | exceptedUsername               |

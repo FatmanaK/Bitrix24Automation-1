@@ -55,7 +55,7 @@ public class Event_stepDefinitions {
             case "link":
                 eventPage.link.click();
                 break;
-            case "insert Video":
+            case "insert video":
                 eventPage.insertVideo.click();
                 break;
             case "quote text":
@@ -72,7 +72,8 @@ public class Event_stepDefinitions {
         Thread.sleep(3000);
         switch (options.toLowerCase()) {
             case "upload files and images":
-                eventPage.UploadFilesAndImages.click();
+                eventPage.UploadFilesAndImages.sendKeys("/Users/selcuksudemirci/Desktop/UploadPic.png" + Keys.ENTER);
+
                 break;
             case "select document from bitrix24":
                 eventPage.selectDocumentFromBitrix24.click();
@@ -99,35 +100,71 @@ public class Event_stepDefinitions {
 
     @When("User clicks the button {string}")
     public void user_clicks_the_button(String button) {
-      //  eventPage.saveButton.click();
+        //  eventPage.saveButton.click();
 
+
+    }
+
+    @And("User enters  the link text  {string}")
+    public void userEntersTheLinkText(String linkText) throws InterruptedException {
+        Thread.sleep(3000);
+        eventPage.linkText.sendKeys(linkText);
+
+    }
+
+    @And("User enters link URLand {string}")
+    public void userEntersLinkURLand(String url) throws InterruptedException {
+        Thread.sleep(3000);
+        eventPage.linkURL.sendKeys(url + Keys.ENTER);
 
     }
 
 
 
 
-    @And("User enters  the link text  {string} and {string}")
-    public void userEntersTheLinkTextAnd(String linkText, String url) throws InterruptedException {
-        Thread.sleep(3000);
-        eventPage.linkText.sendKeys("Google");
-        Thread.sleep(3000);
-        eventPage.linkURL.sendKeys("https://www.google.com/" + Keys.ENTER);
+    @Then("User should be able to see verification {string}")
+    public void userShouldBeAbleToSeeVerification(String verification) throws InterruptedException {
+        wait.until(ExpectedConditions.visibilityOf(eventPage.iFrame));
+        //Thread.sleep(3000);
+        //WebElement iframe = eventPage.iFrame;
+        Driver.getDriver().switchTo().frame(1);
+
+        String actualLinkText = eventPage.verificationLinkText.getText();
+
+        Assert.assertEquals(verification, actualLinkText);
+
+    }
+    @And("User enters video source  URL {string}")
+    public void userEntersVideoSourceURL(String URL) {
+        eventPage.VideoSource.sendKeys(URL);
+
+    }
+
+    @Then("User should see verification of upload video{string}")
+    public void userShouldSeeVerificationOfUploadVideo(String exceptedVerification) {
+
+        String actual404Message=eventPage.message404.getText();
+        System.out.println(actual404Message);
 
 
     }
 
-    @Then("User should be able to see {string}")
-    public void user_should_be_able_to_see(String verification) throws InterruptedException {
 
-        String expectedTest="Google";
-        String actualLinkText = eventPage.linkText.getText();
-        Thread.sleep(3000);
-        Assert.assertEquals(actualLinkText,expectedTest);
+    @And("User enters quote text {string}")
+    public void userEntersQuoteText(String quote) {
+        Driver.getDriver().switchTo().frame(1);
+        eventPage.QuoteInput.sendKeys(quote);
+
 
 
     }
 
+    @Then("User should see the quote {string}")
+    public void userShouldSeeTheQuote(String exceptedQuoteVerification) {
+        String actualQuote=eventPage.QuoteInput.getText();
+
+        Assert.assertEquals(actualQuote,exceptedQuoteVerification);
 
 
+    }
 }

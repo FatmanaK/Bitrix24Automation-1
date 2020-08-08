@@ -15,7 +15,7 @@ Feature: Event page
     And User clicks login button
 
   @UploadFilesAndImages
-  Scenario Outline:User should be able to upload "<options>"
+  Scenario Outline:1. User should be able to upload "<options>"
     When User clicks the tab"<tab>"
     And User clicks the icon "<icon>"
     And User clicks the option "<options>"
@@ -32,13 +32,37 @@ Feature: Event page
 
 
   @AttachLink
-  Scenario Outline:User should be able to attach link text:"<link text>" and link Url:"<link URL>"by clicking on the link icon.
+  Scenario Outline:2.User should be able to attach link text:"<link text>" and link Url:"<link URL>"by clicking on the link icon.
     When User clicks the tab"<tab>"
     And User clicks the icon "<icon>"
-    And User enters  the link text  "<link text>" and "<link URL>"
+    And User enters  the link text  "<link text>"
+    And User enters link URLand "<link URL>"
    # And User clicks the button "<buttons>"
-    Then User should be able to see "<verification>"
+    Then User should be able to see verification "<verification>"
 
     Examples:
       | tab   | icon | link text | link URL                | verification |
       | Event | link | Google    | https://www.google.com/ | Google       |
+
+  @videoUpload
+  Scenario Outline:3. User should be able to insert videos by clicking on the video icon and entering the video URL.
+    When User clicks the tab"<tab>"
+    And User clicks the icon "<icon>"
+    And User enters video source  URL "<URL>"
+    Then User should see verification of upload video"<verification>"
+
+    Examples:
+      | tab   | icon         | URL                                         | verification                       |
+      | Event | insert Video | https://www.youtube.com/watch?v=JtA8gqWA6PE | [FVID404] The video was not found; |
+
+  @quoteUpload
+  Scenario Outline:4. User should be able to create a quote by clicking on the Comma icon.
+    When User clicks the tab"<tab>"
+    And User clicks the icon "<icon>"
+    And User enters quote text "<Quote>"
+    Then User should see the quote "<verification>"
+
+
+    Examples:
+      | tab   | icon       | Quote | verification |
+      | Event | quote text | Seyma | Seyma        |
